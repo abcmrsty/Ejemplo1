@@ -1,41 +1,30 @@
 package example.myapp
 
-import java.lang.Math.PI
+interface FishAction {
+    fun eat()
+}
 
-open class Aquarium(open var length: Int = 100, open var width: Int = 20, open var height: Int = 40) {
-    open var volume: Int
-        get() = width * height * length / 1000
-        set(value) {
-            height = (value * 1000) / (width * length)
-        }
+interface FishColor {
+    val color: String
+}
 
-    open val shape = "rectangle"
+class Plecostomus(fishColor: FishColor = GoldColor) :
+    FishAction by PrintingFishAction("eat algae"),
+    FishColor by fishColor
 
-    open var water: Double = 0.0
-        get() = volume * 0.9
-
-    init {
-        println("aquarium initializing")
-    }
-
-    fun printSize() {
-        println(shape)
-        println("Width: $width cm " +
-                "Length: $length cm " +
-                "Height: $height cm ")
-        println("Volume: $volume l Water: $water l (${water / volume * 100.0}% full)")
+class Shark : FishAction, FishColor {
+    override val color = "gray"
+    override fun eat() {
+        println("hunt and eat fish")
     }
 }
 
-class TowerTank(override var height: Int, var diameter: Int) : Aquarium(height = height, width = diameter, length = diameter) {
-    override var volume: Int
-        get() = (width / 2 * length / 2 * height / 1000 * PI).toInt()
-        set(value) {
-            height = ((value * 1000 / PI) / (width / 2 * length / 2)).toInt()
-        }
+object GoldColor : FishColor {
+    override val color = "gold"
+}
 
-    override var water: Double = 0.0
-        get() = volume * 0.8
-
-    override val shape = "cylinder"
+class PrintingFishAction(val food: String) : FishAction {
+    override fun eat() {
+        println(food)
+    }
 }
