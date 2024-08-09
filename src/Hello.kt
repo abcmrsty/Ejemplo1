@@ -45,11 +45,12 @@ fun fishFood (day : String) : String {
     }
 }
 
-//fun feedTheFish() {
-    //val day = randomDay()
-    //val food = fishFood(day)
-    //println ("Today is $day and the fish eat $food")
-//}
+/*fun feedTheFish() {
+    val day = randomDay()
+    val food = fishFood(day)
+    println ("Today is $day and the fish eat $food")
+}
+ */
 
 fun feedTheFish() {
     val day = randomDay()
